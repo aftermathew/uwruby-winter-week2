@@ -9,12 +9,12 @@
       <td class="list-description">
 	<dl>
 	  <dt><%=h product.title %></dt>
-	  <dd><%=h truncate(product.description.gsub(/<.*?>/,''),
-		   :length => 80) %></dd>
+	  <dd><%= truncate(product.description.gsub(/<.*?>/,''),
+		  :length => 80) %></dd>
 	</dl>
       </td>
       <td class="list-price">
-	$<%=h product.price / 100.0 %>
+	<%=h sprintf( "$%.2f", product.price/100.0) %>
       </td>
       <td class="list-actions">
 	<%= link_to 'Show', product %><br/>

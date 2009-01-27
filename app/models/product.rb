@@ -3,13 +3,15 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price
   validates_uniqueness_of :title, :message => 'entered is already in use ' +
     'by another produce.'
-
   validate :price_must_be_at_least_a_cent
-
   validates_format_of :image_url,:with => %r{\.(gif|jpg|png)$}i,
                       :message => 'must be a URL for GIF, JPG or PNG image.'
-
   validates_length_of :title, :minimum => 10, :message => "seems too short"
+
+
+  def self.find_products_for_sale
+    find(:all, :order => "title")
+  end
 
   protected
 
