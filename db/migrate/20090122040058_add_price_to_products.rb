@@ -4,6 +4,6 @@ class AddPriceToProducts < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column(:prodcts, :price)
+    remove_column(:products, :price)
   end
 end
