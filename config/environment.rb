@@ -25,7 +25,7 @@ Rails::Initializer.run do |config|
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
+  config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
@@ -55,8 +55,8 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_uwruby-winter-week2_session',
-    :secret      => '06dcc23e35bbf98cac7a142e882d4138666c21ee4c0942f17dff6296b46cc6bc02091c5b9acbdbdb229b82aa58d2e6fee31c328b4f6efcb2ed24a5e219fde2dd'
+    :session_key => '_depot_session',
+    :secret      => '15f9ea54b85ff680b347085979505a3b83d7153ab8a6c70985c98bfeb8f6bca6b8123555ac336a23fa04c41ac997d99cbe18f0620bc5fb42c44683e862496202'
   }
 
   # Use the database for sessions instead of the cookie-based default,
