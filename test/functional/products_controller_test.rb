@@ -68,11 +68,30 @@ class ProductsControllerTest < ActionController::TestCase
     assert_equal 'mega awesome title', Product.find(products(:one).id).title
   end
 
+  test "products must have title" do
+    put :update, :id => products(:one).id, :product => {
+      :title => ''
+    }
+
+    #why does rails respond with success?
+    assert_response :success
+    # look for complaints from rails
+    assert_select "div.fieldWithErrors > input#product_title", :text => ""
+    assert_select "div.fieldWithErrors > label", :text => "Title"
+
+  end
+
+
+
   test "should destroy product" do
     assert_difference('Product.count', -1) do
       delete :destroy, :id => products(:one).id
     end
 
     assert_redirected_to products_path
+
   end
+
+
 end
+
