@@ -82,6 +82,63 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
 
+  test "products must long title" do
+    put :update, :id => products(:one).id, :product => {
+      :title => 'short'
+    }
+
+    #why does rails respond with success?
+    assert_response :success
+    # look for complaints from rails
+    assert_select "div.fieldWithErrors > input#product_title", :text => ""
+    assert_select "div.fieldWithErrors > label", :text => "Title"
+
+  end
+
+
+  test "products must be priced reasonably" do
+    put :update, :id => products(:one).id, :product => {
+      :price => ''
+    }
+
+
+    assert_response :success
+    # look for complaints from rails
+    assert_select "div.fieldWithErrors > input#product_price", :text => ""
+    assert_select "div.fieldWithErrors > label", :text => "Price"
+
+
+    put :update, :id => products(:one).id, :product => {
+      :price => '-10'
+    }
+
+
+    assert_response :success
+    # look for complaints from rails
+    assert_select "div.fieldWithErrors > input#product_price", :text => ""
+    assert_select "div.fieldWithErrors > label", :text => "Price"
+  end
+
+  test "products must have good image" do
+    put :update, :id => products(:one).id, :product => {
+      :image_url => ''
+    }
+
+    assert_response :success
+    # look for complaints from rails
+    assert_select "div.fieldWithErrors > input#product_image_url", :text => ""
+    assert_select "div.fieldWithErrors > label", :text => "Image url"
+
+    put :update, :id => products(:one).id, :product => {
+      :image_url => 'I sing in the shower'
+    }
+
+    assert_response :success
+    # look for complaints from rails
+    assert_select "div.fieldWithErrors > input#product_image_url", :text => ""
+    assert_select "div.fieldWithErrors > label", :text => "Image url"
+
+  end
 
   test "should destroy product" do
     assert_difference('Product.count', -1) do
