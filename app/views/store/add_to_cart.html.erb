@@ -1,5 +1,9 @@
-<ul>
-  <% for item in @cart.items %>
-  <li> <% h item.title %> </li>
-  <% end %>
-</ul>
+<h2> Your Cart is sweet as </h2>
+
+<ul> 
+  <% for item in @cart.items %> 
+  <li><%=h item.title %></li> 
+  <% end %> 
+</ul> 
+
+
