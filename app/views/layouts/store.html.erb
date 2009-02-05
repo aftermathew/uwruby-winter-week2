@@ -24,6 +24,10 @@
 
     </div>
     <div id="main">
+      <% if flash[:notice] -%> 
+      <div id="notice"><%= flash[:notice] %></div> 
+      <% end -%>
+
       <%= yield :layout %><!-- <label id="code.depot.e.include"/> -->
     </div>
   </div>
