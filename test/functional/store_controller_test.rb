@@ -21,7 +21,7 @@ class StoreControllerTest < ActionController::TestCase
 
     Product.find_products_for_sale.each do |product|
       assert_tag :tag => 'h3', :content => product.title
-      assert_match /#{sprintf("%01.2f", product.price / 100.0)}/, @response.body
+      assert_match /#{sprintf("%01.2f", product.price)}/, @response.body
     end
   end
 end

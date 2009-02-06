@@ -4,10 +4,10 @@ one:
   title: GreatFirstProduct
   description: great
   image_url: /images/one.jpg
-  price: 2000
+  price: 20.00
 
 two:
   title: WonderfulSecondProduct
   description: wonderful
   image_url: /images/two.gif
-  price: 2050
+  price: 20.50
