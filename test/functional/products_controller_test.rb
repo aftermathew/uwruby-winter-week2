@@ -32,6 +32,7 @@ class ProductsControllerTest < ActionController::TestCase
         :image_url    => 'http://example.com/foo.gif',
         :price        => '100'
       }
+      assert_match /created/i, flash[:notice]
     end
 
     assert_redirected_to product_path(assigns(:product))
@@ -64,8 +65,8 @@ class ProductsControllerTest < ActionController::TestCase
       :title => 'mega awesome title'
     }
     assert_redirected_to product_path(assigns(:product))
-
     assert_equal 'mega awesome title', Product.find(products(:one).id).title
+    assert_match /updated/i, flash[:notice]
   end
 
   test "products must have title" do
@@ -73,9 +74,7 @@ class ProductsControllerTest < ActionController::TestCase
       :title => ''
     }
 
-    #why does rails respond with success?
     assert_response :success
-    # look for complaints from rails
     assert_select "div.fieldWithErrors > input#product_title", :text => ""
     assert_select "div.fieldWithErrors > label", :text => "Title"
 
@@ -87,9 +86,7 @@ class ProductsControllerTest < ActionController::TestCase
       :title => 'short'
     }
 
-    #why does rails respond with success?
     assert_response :success
-    # look for complaints from rails
     assert_select "div.fieldWithErrors > input#product_title", :text => ""
     assert_select "div.fieldWithErrors > label", :text => "Title"
 
@@ -101,20 +98,15 @@ class ProductsControllerTest < ActionController::TestCase
       :price => ''
     }
 
-
     assert_response :success
-    # look for complaints from rails
     assert_select "div.fieldWithErrors > input#product_price", :text => ""
     assert_select "div.fieldWithErrors > label", :text => "Price"
-
 
     put :update, :id => products(:one).id, :product => {
       :price => '-10'
     }
 
-
     assert_response :success
-    # look for complaints from rails
     assert_select "div.fieldWithErrors > input#product_price", :text => ""
     assert_select "div.fieldWithErrors > label", :text => "Price"
   end
@@ -125,7 +117,6 @@ class ProductsControllerTest < ActionController::TestCase
     }
 
     assert_response :success
-    # look for complaints from rails
     assert_select "div.fieldWithErrors > input#product_image_url", :text => ""
     assert_select "div.fieldWithErrors > label", :text => "Image url"
 
@@ -134,10 +125,8 @@ class ProductsControllerTest < ActionController::TestCase
     }
 
     assert_response :success
-    # look for complaints from rails
     assert_select "div.fieldWithErrors > input#product_image_url", :text => ""
     assert_select "div.fieldWithErrors > label", :text => "Image url"
-
   end
 
   test "should destroy product" do
@@ -146,9 +135,6 @@ class ProductsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to products_path
-
   end
-
-
 end
 
