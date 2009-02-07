@@ -23,4 +23,26 @@ class StoreControllerTest < ActionController::TestCase
       assert_match /#{sprintf("%01.2f", product.price)}/, @response.body
     end
   end
+
+  test "empty cart removes all products from cart" do
+    post :add_to_cart, :id => products(:one).id
+    assert_response :success
+    get :index
+    assert_response :success
+    post :add_to_cart, :id => products(:two).id
+    assert cart = assigns(:cart)
+    assert_equal 2, cart.items.length
+
+    get :empty_cart
+    assert_nil session[:cart]
+    assert_redirected_to :action => 'index'
+    assert_match /empty cart/i, flash[:notice]
+  end
+
+  test "fake product redirects to index with flash" do
+    post :add_to_cart, :id => 987654321
+    assert_redirected_to :action => 'index'
+    assert flash[:notice]
+  end
+
 end
