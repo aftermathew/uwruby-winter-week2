@@ -21,9 +21,11 @@
   <div id="columns">
     <div id="side">
       <!-- START_HIGHLIGHT -->
-      <div id="cart">
+      <!-- START:hidden_div -->
+      <% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
         <%= render(:partial => "cart", :object => @cart) %>
-      </div>
+      <% end %>
+    <!-- END:hidden_div -->
 
       <!-- END_HIGHLIGHT -->
 
