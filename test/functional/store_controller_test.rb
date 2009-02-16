@@ -36,7 +36,8 @@ class StoreControllerTest < ActionController::TestCase
     get :empty_cart
     assert_nil session[:cart]
     assert_redirected_to :action => 'index'
-    assert_match /empty cart/i, flash[:notice]
+    get :index
+    assert_match /id=\"cart\" style=\"display: none\"/i, @response.body
   end
 
   test "fake product redirects to index with flash" do

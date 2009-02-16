@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class LineItemsControllerTest < ActionController::TestCase
+  def setup
+    @request.session[:user_id] = users(:one).id
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -14,7 +18,8 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should create line_item" do
     assert_difference('LineItem.count') do
-      post :create, :line_item => { }
+      post :create, :line_item => {:product_id => 1, :order_id => 1,
+        :quantity => 1, :total_price => 320}
     end
 
     assert_redirected_to line_item_path(assigns(:line_item))

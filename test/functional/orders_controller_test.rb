@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class OrdersControllerTest < ActionController::TestCase
+  def setup
+    @request.session[:user_id] = users(:one).id
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -14,7 +18,12 @@ class OrdersControllerTest < ActionController::TestCase
 
   test "should create order" do
     assert_difference('Order.count') do
-      post :create, :order => { }
+      post :create, :order => {
+        :name => 'fart',
+        :address => 'fart street',
+        :email => 'fart@fart.com',
+        :pay_type => 'check',
+      }
     end
 
     assert_redirected_to order_path(assigns(:order))
@@ -31,7 +40,12 @@ class OrdersControllerTest < ActionController::TestCase
   end
 
   test "should update order" do
-    put :update, :id => orders(:one).id, :order => { }
+    put :update, :id => orders(:one).id, :order => {
+      :name => 'fart',
+      :address => 'fart street',
+      :email => 'fart@fart.com',
+      :pay_type => 'check',
+    }
     assert_redirected_to order_path(assigns(:order))
   end
 
