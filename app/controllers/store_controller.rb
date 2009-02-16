@@ -51,9 +51,12 @@ class StoreController < ApplicationController
   end
 
   private
-   def find_cart
-     session[:cart] ||= Cart.new
-   end
+  def authorize
+  end
+
+  def find_cart
+    session[:cart] ||= Cart.new
+  end
 
   def redirect_to_index (notice = nil)
     flash[:notice] = notice if notice
