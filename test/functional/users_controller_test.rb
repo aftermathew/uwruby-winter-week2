@@ -5,7 +5,13 @@ class UsersControllerTest < ActionController::TestCase
     @request.session[:user_id] = users(:one).id
   end
 
-  test "should get index" do
+  test "should be logged in" do
+    @request.session[:user_id] = nil
+    get :index
+    assert_response :redirect
+  end
+
+ test "should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:users)

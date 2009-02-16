@@ -5,6 +5,12 @@ class LineItemsControllerTest < ActionController::TestCase
     @request.session[:user_id] = users(:one).id
   end
 
+  test "i am logged in!" do
+    @request.session[:user_id] = users(:one).id
+    get :index
+    assert_response :success
+  end
+
   test "should get index" do
     get :index
     assert_response :success
