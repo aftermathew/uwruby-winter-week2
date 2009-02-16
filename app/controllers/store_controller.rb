@@ -1,12 +1,11 @@
 class StoreController < ApplicationController
+  before_filter :find_cart, :except => :empty_cart
   def index
-    @cart = find_cart
     @products = Product.find_products_for_sale
   end
 
   def add_to_cart
     product = Product.find(params[:id])
-    @cart = find_cart
     @current_item = @cart.add_product(product)
     respond_to do |format|
       format.js
@@ -18,7 +17,6 @@ class StoreController < ApplicationController
   end
 
   def save_order
-    @cart = find_cart
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(@cart)
     if @order.save
@@ -36,7 +34,6 @@ class StoreController < ApplicationController
 
 
   def checkout
-    @cart = find_cart
     if @cart.items.empty?
       redirect_to_index("How much would you charge you for selling you nothing?")
     else
@@ -51,16 +48,17 @@ class StoreController < ApplicationController
   end
 
   private
-  def authorize
-  end
-
   def find_cart
-    session[:cart] ||= Cart.new
+    @cart = session[:cart] ||= Cart.new
   end
 
   def redirect_to_index (notice = nil)
     flash[:notice] = notice if notice
     redirect_to :action => 'index'
+  end
+
+  protected
+  def authorize
   end
 
 end
