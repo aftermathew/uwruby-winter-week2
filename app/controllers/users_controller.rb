@@ -83,6 +83,8 @@ class UsersController < ApplicationController
       @user.destroy
     rescue Exception => e
       flash[:notice]=e.message
+    end
+
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
