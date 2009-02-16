@@ -1,2 +1,5 @@
 *.log
 *.sqlite3
+*.DStore
+*#*#
+*.#*

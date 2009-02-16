@@ -57,7 +57,18 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count', -1) do
       delete :destroy, :id => users(:one).id
     end
-
     assert_redirected_to users_path
   end
+
+  #thanks bill / mailing list
+  self.use_transactional_fixtures = false
+  test "destroy last fails1" do
+    assert_raise(RuntimeError) do
+      User.find(:all).each do |user|
+        user.destroy
+      end
+    end
+    assert_equal 1, User.count
+ end
+
 end
